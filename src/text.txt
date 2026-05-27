@@ -1,0 +1,8 @@
+:root {
+  --color-dark: #090809;
+  --color-primary: #f40000;
+  --color-secondary: #f44e3f;
+  --color-accent: #f4769b;
+  --color-soft: #f4998d;
+  --color-background: #ffffff;
+}
