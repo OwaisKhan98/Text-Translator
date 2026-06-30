@@ -6,8 +6,6 @@ import { LoaderCircle } from 'lucide-react';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const apikey = import.meta.env.VITE_API_KEY;
-
 function Translaotr() {
     const [text, setText] = useState("");
     const [lang, setLang] = useState("select");
@@ -25,23 +23,10 @@ function Translaotr() {
         if (!text.trim() || lang === "select") return;
         setLoader(true);
         try {
-            const options = {
-                method: 'POST',
-                url: 'https://google-translator9.p.rapidapi.com/v2',
-                headers: {
-                    'x-rapidapi-key': apikey,
-                    'x-rapidapi-host': 'google-translator9.p.rapidapi.com',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    q: `${text}`,
-                    source: 'en',
-                    target: `${lang}`,
-                    format: 'text'
-                }
-            };
-
-            const response = await axios.request(options);
+           const response = await axios.post("/api/translator",{
+            text,
+            lang,
+           })
             setLoader(false);
             setOutput(response.data?.data.translations?.[Number(0)]?.translatedText || "");
         } catch (error) {
