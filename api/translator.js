@@ -1,6 +1,5 @@
 export default async function handler(req, res) {
     if (req.method !== "POST") {
-        // FIXED: Combined return and res onto the same line, fixed .json syntax
         return res.status(405).json({ message: "Method is not allowed" });
     }
 
@@ -15,19 +14,16 @@ export default async function handler(req, res) {
                 "x-rapidapi-host": "google-translator9.p.rapidapi.com",
             },
             body: JSON.stringify({
-                q: `${text}`,
+                q: text,
                 source: 'en',
-                target: `${lang}`,
+                target: lang,
                 format: 'text'
             }),
         });
         
         const data = await response.json();
-        
-        // FIXED: Combined return and res onto the same line
         return res.status(200).json(data);
     } catch (error) {
-        // FIXED: Combined return and res onto the same line
         return res.status(500).json({
             error: "Translation did not occur"
         });
